@@ -31,7 +31,7 @@ curl --request GET \
   --url 'http://localhost:4000/search?hotel=golden%20tulip&city=paris&price=%24100%3A%24200&date=10-10-2020%3A15-10-2020&orderBy=hotel'
 
 #### Node Request 
-var request = require("request");
+var request = require("request")
 
 var options = { method: 'GET',
   url: 'http://localhost:4000/search',
@@ -40,10 +40,15 @@ var options = { method: 'GET',
      city: 'paris',
      price: '$100:$200',
      date: '10-10-2020:15-10-2020',
-     orderBy: 'hotel' } };
+     orderBy: 'hotel' } }
 
 request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+  if (error) throw new Error(error)
 
-  console.log(body);
-});
+  console.log(body)
+})
+
+#### Side note
+The refactored file does not filter over and reassign the same array repeatedly, but it is more inefficient even though it visually looks to be more efficient.
+On the dataset of 6 items it is 10% slower (5ms)
+On the dataset of 600 items it is 11% slower (25ms)
