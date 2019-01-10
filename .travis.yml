@@ -3,3 +3,16 @@ node_js:
  - "node"
 env:
 - PORT=8080
+
+env:
+  CODECLIMATE_REPO_TOKEN:
+    secure: "FWLQ99WJkXARmnGAVTH2oqtTSKe8z9HvBFE133O5X1/ZxC/VGUOtV+lI9w+YhSB6xivwPjnZXyFJe8HAgHKhMCMQYjM434pVOP9jyzbPJFmCo2UE98wGHgwKnTx9hzYYq94ScodkueaMg0h/2+fSIVw+xJ7yOxfCHFXl8UBKv7Bu9LBaCTT2NvQ6CkKkpz94ei17V/FZW5a7bXehOXTPB5qgeVggYn8sChw966pdbwp2UTVOIGNJEGGScdoCUI3ddqOY3j/oh4tdMYj0Tby1IZFAEYfqMjXdH1DV5q50U4y4QUApnEYIetoBdIz2RONcZWh6diu59opfrliglqLlu6Eay0z9QmuvR7BWOy5VS9cozba5Unvb7920a7Sp9zaQDezLQxf164vRNvaah3NsjwWZ0rEATUeQD2vu/Af0jvKckxcxb3RAGJ2heBpLM84ZfNM2M5mGFQHrCTAatAgyXbszCSDLltadEpeOqU5o6rvUYM2T+go5OvohoILEBUsFwIJe3qudcvkwyDT7qe0YeCC6GpHm63xJsGy1vgWzFPVGm32xxhVjktnHvhXKz1k+wS7Hr1PaEit5OnN+w8PrzLj3O6e4OMbcnaWZl5vRQ/DAks/MmPiK4uNZa2nVKcPKBDw5Isk16dQ7xOTpgqeiMwZNNMFcm+3HvVPmzUZ2q/0="
+
+before_script:
+- npm install -g istanbul
+- npm install -g mocha
+- npm install -g codeclimate-test-reporter
+
+after_success:
+  - istanbul cover _mocha -- -R spec ./test/*.js
+  - codeclimate < ./coverage/lcov.info
