@@ -6,6 +6,7 @@
   Then the response is ordered and returned
 */
 
+/*
 const got = require('got')
 const _ = require('lodash')
 const moment = require('moment')
@@ -48,3 +49,5 @@ module.exports.search = ({hotel, city, price, date, orderBy}) => {
     return Promise.resolve(results)
   })
 }
+
+*/
