@@ -1,3 +1,11 @@
+/*
+  SearchService.js
+
+  This service is where the primary logic rests.
+  First the request is made then the response object is filtered based on which inputs are provided
+  Then the response is ordered and returned
+*/
+
 const got = require('got')
 const _ = require('lodash')
 const moment = require('moment')
@@ -11,8 +19,8 @@ module.exports.search = ({hotel, city, price, date, orderBy}) => {
     if (hotel) results = results.filter(result => _.includes(_.toLower(result.name), hotel))
     if (city) results = results.filter(result => _.includes(_.toLower(result.city), city))
     if (price) {
-      const lowerPrice = parseInt(_.trim(_.split(price, ':')[0], '$'))
-      const upperPrice = parseInt(_.trim(_.split(price, ':')[1], '$'))
+      const lowerPrice = parseInt(_.trim(_.split(price, ':')[0], '$'), 10)
+      const upperPrice = parseInt(_.trim(_.split(price, ':')[1], '$'), 10)
 
       results = results.filter(result => result.price >= lowerPrice && result.price <= upperPrice)
     }

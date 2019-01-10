@@ -1,68 +1,49 @@
 # bookingfinder
+[![Build Status](https://travis-ci.org/AmateurContender/fantastic-octo-succotash.svg?branch=master)](https://travis-ci.org/AmateurContender/fantastic-octo-succotash) [![Maintainability](https://api.codeclimate.com/v1/badges/e472ff7d6bc5e508b2ca/maintainability)](https://codeclimate.com/github/AmateurContender/fantastic-octo-succotash/maintainability) 
 
-## Developer Challenge
+## Details
+- The code in the project follows the javascript standard style.
+- The code is structured in the format recommended by express.
+- All the logic is located in services/SearchService.js
+- All the provided use cases are test cases
+- The code coverage shows 100% for all checks in SearchService but it is just a metric
+- An assumption is made that this api is going to be called by someone who has knowledge of what the params and response will look like
+- An assumption is also made that the inputs will all be in the same format as the example
+- An assumption is that the inputs are validated and the endpoint is only exposed to verified testers
+- The tests take 50ms to pass, When the data set is increased 100x the tests take 180ms to pass. This is not a definitive performance test but gives a fair idea of the performance.
 
-The objective of this challenge is to hit an endpoint containing the list of hotels and perform some actions on the result.
-The challenge must be solved in PHP or NodeJs.
+## Getting up and running
+- Clone this repository
+- Create a .env file based on the .env.sample file provided
+- run npm install && npm run dev
 
-The URL containing the list of hotels can be found at [https://api.myjson.com/bins/tl0bp](https://api.myjson.com/bins/tl0bp)
+## Running test suite
+Mocha is the test suite used. The request is stubbed using [nock](https://github.com/nock/nock).
+The test coverage report is presented after running the tests. The tests are only for the services file where all the logic rests.
+Tests can be run using the command npm t or npm run test
 
-## Requirements and Output
+## Making Requests
+Any of the params can be changed or omitted
+The options for orderBy are 'hotel' or 'price'
 
-#### Create a RESTful API to **allow search** in the given inventory by any of the following:
+#### Curl Request
+curl --request GET \
+  --url 'http://localhost:4000/search?hotel=golden%20tulip&city=paris&price=%24100%3A%24200&date=10-10-2020%3A15-10-2020&orderBy=hotel'
 
-- Hotel Name
-- Destination [City]
-- Price range [ex: $100:$200]
-- Date range [ex: 10-10-2020:15-10-2020]
+#### Node Request 
+var request = require("request");
 
-and allow sorting by: // query params
+var options = { method: 'GET',
+  url: 'http://localhost:4000/search',
+  qs:
+   { hotel: 'golden tulip',
+     city: 'paris',
+     price: '$100:$200',
+     date: '10-10-2020:15-10-2020',
+     orderBy: 'hotel' } };
 
-- Hotel Name
-- Price
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
 
-This is including search by multiple criteria in the same time like search by destination and price together.
-
-## Conditions
-
-- You can use any framework or tool, You also can build it all also from scratch if you like
-- Fetch the data directly from the URL and not create a JSON file
-- Use PHP >= 7.1  for the development or NodeJs >= 9.x
-- Write full test using any test suite like PHPUnit for php or Jest for JS, Whatever you prefer
-- Implement [travis](https://travis-ci.org) or [scrutinizer-ci](https://scrutinizer-ci.com) or any other CI tool for the project, Add the build status badges to your project README file
-- Use [codeclimate](https://codeclimate.com) or any other alternative to estimate the code quality and add it's badge to your project README file
-- Do not use any database or any full text search engines
-- If you make any assumptions, mention them clearly in the readme file
-
-## What we are looking for
-
-- **Simple, clear, readable code** How well structured it is? Clear separation of concerns? Can anyone just look at it and get the idea to
-what is being done? Does it follow any standards?
-- **Correctness** Does the application do what it promises? Can we find bugs or trivial flaws?
-- **Security** are there any obvious vulnerability?
-- **Memory efficiency** How will it behave in case of large datasets?
-- **Testing** How well tested your application is? Can you give some metrics?
-- **Documentation** Is the code self documented and it's easy to understand it by just reading?
-
-
-## Commit History
-- Use whatever development workflow works best for you. If your solution is small enough and a single commit is justified, that's fine; we just ask that you keep your commit history as coherent as possible.
-
-## Questions & Delivery
-
-If you have any questions about this challenge, please do reach out to us.
-
-The challenge solution should be delivered as a link to a public git repository (github.com or bitbucket.com are preferred).
-
-## Checklist
-
-Before submitting, make sure that your program
-
-- [ ] Code accompanies the Unit Tests
-- [ ] Usage is clearly mentioned in the README file, This including setup the project, how to run it, how to run unit test, examples,etc
-- [ ] Uses the endpoint directly
-
-## Note
-
-Implementations focusing on **quality over feature completeness** will be highly appreciated, don’t feel compelled to implement everything and even if you are not able to complete the challenge, please do submit it anyways.
-
+  console.log(body);
+});
