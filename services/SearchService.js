@@ -35,8 +35,7 @@ module.exports.search = ({hotel, city, price, date, orderBy}) => {
           return (availableStartDate && availableEndDate)
         })
 
-        if (result.availability.length > 0) return true
-        else return false
+        if (result.availability.length === 0) return false
       }
 
       return true
