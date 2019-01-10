@@ -2,6 +2,7 @@ const _ = require('lodash')
 const SearchService = require('../services/SearchService')
 
 module.exports.search = (req, res) => {
+  // Sanitizing text inputs to lowercase
   const hotel = _.toLower(req.query.hotel)
   const city = _.toLower(req.query.city)
   const price = req.query.price
